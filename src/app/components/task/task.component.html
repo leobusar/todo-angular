@@ -1,0 +1,30 @@
+<h1>
+  Las tareas de {{ owner }}
+</h1>
+<ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+
+<div *ngIf="tasklist.length; else notask">
+	<ul class="list-group">
+		<li class="list-group-item" *ngFor="let task of tasklist">
+		{{task.category}} - {{task.name}} 
+		<button (click)="deleteTask(event, task)" class="btn btn-danger">Eliminar</button>
+		<button (click)="getTask(event, task)"  class="btn btn-info mx-2" >Editar</button>
+
+	</li>
+	</ul>
+</div>
+<form (ngSubmit)="addTask()">
+	<label for="name">Nombre</label>
+	<input type="hidden" name="id"  [(ngModel)]="task.id">
+	<div class="form-input">
+		<input type="text" name="name" [(ngModel)]="task.name">		
+	</div>
+	<label for="category">Categoria</label>
+	<div class="form-input">
+		<input type="text" name="category" [(ngModel)]="task.category">		
+	</div>
+	<button class="btn btn-default">{{ button }}</button>	
+</form>
+<ng-template #notask>
+	<h3>No hay tareas</h3>
+</ng-template>
