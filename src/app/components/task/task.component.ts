@@ -1,59 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Task } from '../../models/task';
 import { TaskService } from  '../../services/task.service';
+ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css']
 })
-export class TaskComponent implements OnInit {
+export class TaskComponent implements OnInit, OnDestroy {
    owner :string;
    tasklist :Task[];
    task :Task;
    button :string;
    successMessage :string;
+   private _subscriptions: Subscription[] = [];
 
   constructor(public taskService: TaskService) { 
   	this.owner = "Leonardo Bustamante";
   	this.tasklist = [];
     this.reset();
-    /* [
-		{
-			"id": "1",
-			"name": "Organizar escritorio",
-			"category": "laboral"
-		},
-		{
-			"id": "2",
-			"name": "Requerimientos",
-			"category": "WebP"
-		},
-		{
-			"id": "3",
-			"name": "Pagar servicios",
-			"category": "personal"
-		},
-		{
-			"id": "4",
-			"name": "Preparar proyecto", 
-			"category": "WebP"
-		} 
-  		];*/
+
   }
 
   ngOnInit() {
-    this.taskService.getTasks().subscribe((tasks)=>
-      {
-        console.log(tasks);
-        this.tasklist = tasks;
-        });
+    this._subscriptions.push( this.taskService.getTasks().subscribe((tasks)=>
+        {
+          this.tasklist = tasks;
+        }) 
+     );
 
   }
 
+// OnDestroy Hook
+  public ngOnDestroy() {
+    // Unsubscribe from each Subscription
+    this._subscriptions.forEach((subscription: Subscription) =>
+     { subscription.unsubscribe() });
+  }
+  
   reset(){
     this.task = {"id": "", "name": "", "category": ""};
-    this.button = "Guardar";
+    this.button = "Guardar";    
   }
 
   addTask(){

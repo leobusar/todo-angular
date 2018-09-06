@@ -3,7 +3,7 @@
 </h1>
 <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
 
-<div *ngIf="tasklist.length; else notask">
+<div *ngIf="tasklist?.length; else notask">
 	<ul class="list-group">
 		<li class="list-group-item" *ngFor="let task of tasklist">
 		{{task.category}} - {{task.name}} 
