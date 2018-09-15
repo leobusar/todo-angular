@@ -13,8 +13,6 @@ import { AppComponent } from './app.component';
 import { TaskComponent } from './components/task/task.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { HeaderComponent } from './components/header/header.component';
-import { TasklistComponent } from './components/tasklist/tasklist.component';
-import { TaskeditComponent } from './components/taskedit/taskedit.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +20,6 @@ import { TaskeditComponent } from './components/taskedit/taskedit.component';
     TaskComponent,
     InicioComponent,
     HeaderComponent,
-    TasklistComponent,
-    TaskeditComponent
   ],
   imports: [
     AppRoutingModule,

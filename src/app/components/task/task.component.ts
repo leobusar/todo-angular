@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Task } from '../../models/task';
 import { TaskService } from  '../../services/task.service';
  import { Subscription } from 'rxjs';
-
+ 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
